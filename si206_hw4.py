@@ -180,7 +180,18 @@ class Test(unittest.TestCase):
         tup = play_war_game(testing = True)  #calls the game to be played
         self.assertEqual(type(tup), tuple)   #first calls to see if what is returend is a tuple
         self.assertEqual(type(tup[0]), str)  #test to see if the first element of the tuple is a string
- 
+    
+    
+    ## Write at least 2 additional tests (not repeats of the above described tests). Make sure to include a descriptive message in these two so we can easily see what you are testing!
+    def test_add1(self):
+        tup1 = play_war_game(testing = True)
+        self.assertEqual(type(tup1[1]), int, "Test to see if the second element of the tuple that is returned is an integer")
+    
+    def test_add2(self):
+        pop1 = Deck()
+        c = pop1.pop_card()
+        self.assertEqual(len(pop1.cards), 51, "Test to see if deck gets smaller when drawing a card from the deck")
+
 
 #############
 ## The following is a line to run all of the tests you include:

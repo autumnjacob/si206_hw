@@ -133,7 +133,54 @@ if __name__ == "__main__":
 ##**##**##**##@##**##**##**## # DO NOT CHANGE OR DELETE THIS COMMENT LINE -- we use it for grading your file
 ###############################################
 
-
+class Test(unittest.TestCase):
+    ## Test that if you create a card with rank 12, its rank will be "Queen"
+    def test_queen(self):
+        queen = Card(rank = 12)
+        self.assertEqual(queen.rank, "Queen")
+    ## Test that if you create a card with rank 1, its rank will be "Ace"
+    def test_ace(self):
+        ace = Card(rank = 1)
+        self.assertEqual(ace.rank, "Ace")
+    
+    ## Test that if you create a card instance with rank 3, its rank will be 3
+    def test_3(self):
+        three = Card(rank = 3)
+        self.assertEqual(three.rank, 3)
+    ## Test that if you create a card instance with suit 1, it will be suit "Clubs"
+    def test_clubs(self):
+        clubs = Card(suit = 1)
+        self.assertEqual(clubs.suit, "Clubs")
+    
+    ## Test that if you create a card instance with suit 2, it will be suit "Hearts"
+    def test_hearts(self):
+        hearts = Card(suit = 2)
+        self.assertEqual(hearts.suit, "Hearts")
+    ## Test that if you create a card instance, it will have access to a variable suit_names that contains the list ["Diamonds","Clubs","Hearts","Spades"]
+    def test_suit(self):
+        suit = Card()
+        self.assertEqual(suit.suit_names, ["Diamonds","Clubs","Hearts","Spades"])
+    
+    ## Test that if you invoke the __str__ method of a card instance that is created with suit=2, rank=7, it returns the string "7 of Hearts"
+    def test_str(self):
+        string = Card(suit = 2, rank = 7)
+        self.assertEqual(string.__str__(), "7 of Hearts")
+    
+    ## Test that if you create a deck instance, it will have 52 cards in its cards instance variable
+    def test_deck(self):
+        test = Deck()
+        self.assertEqual(len(test.cards), 52)
+    ## Test that if you invoke the pop_card method on a deck, it will return a card instance.
+    def test_pop(self):
+        pop = Deck()
+        self.assertIsInstance(pop.pop_card(), Card) #don't need to call the class, just the class aname because it is expecting to call a class
+    
+    ## Test that the return value of the play_war_game function is a tuple with three elements, the first of which is a string. (This will probably require multiple test methods!)
+    def test_tup(self):
+        tup = play_war_game(testing = True)  #calls the game to be played
+        self.assertEqual(type(tup), tuple)   #first calls to see if what is returend is a tuple
+        self.assertEqual(type(tup[0]), str)  #test to see if the first element of the tuple is a string
+ 
 
 #############
 ## The following is a line to run all of the tests you include:

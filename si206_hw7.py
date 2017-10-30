@@ -66,7 +66,7 @@ api = tweepy.API(auth, parser=tweepy.parsers.JSONParser())
 ## 1. Set up the caching pattern start -- the dictionary and the try/except
 ## 		statement shown in class.
 
-#serviceurl = 'http://maps.googleapis.com/maps/api/geocode/json?'
+
 CACHE_FNAME = 'cache_tweets.json' # String for your file. We want the JSON file type, bcause that way, we can easily get the information into a Python dictionary!
 
 try:
@@ -82,21 +82,21 @@ except:
 ## 2. Write a function to get twitter data that works with the caching pattern,
 ## 		so it either gets new data or caches data, depending upon what the input
 ##		to search for is.
-def gettweets_catching(data):
-
-    if data in CACHE_DICTION:
+def gettweets_catching(data): # caching format checking for cached data 
+    extend_search = "twitter_" + str(data)
+    if extend_search in CACHE_DICTION:
         print("Data was in the cache")
-        return CACHE_DICTION[data]
+        return CACHE_DICTION[extend_search]
     else:
         print("Making a request for new data...")
         results = api.search(q=data)
         try:
-            CACHE_DICTION[data] = results
+            CACHE_DICTION[extend_search] = results
             dumped_json_cache = json.dumps(CACHE_DICTION)
             fw = open(CACHE_FNAME,"w")
             fw.write(dumped_json_cache)
             fw.close() # Close the open file
-            return CACHE_DICTION[data]
+            return CACHE_DICTION[extend_search]
         except:
             print("Wasn't in cache and wasn't valid search either")
             return None
@@ -108,16 +108,16 @@ def gettweets_catching(data):
 
 for ls in range(3):
     search = input("Enter tweet Term:")
-    list_of_tweets = gettweets_catching(search)
-print (list_of_tweets)
-
+    list_of_tweets = gettweets_catching(search) #geting json data to filter through
+    #print (list_of_tweets)
+    for tweet in list_of_tweets['statuses'][0:5]: #getting 5 tweets with search term
+        print(tweet["text"]) #getting tweet
+        print (tweet["created_at"]) #getting date
+        print("\n")
 
 ## Iterate over the tweets you get back...
 ## And print the text of each one!
-'''
-for tweet in list_of_umich_tweets[0:5]:
-    print(tweet["text"])
-    print("\n")
+
 
 ## 4. With what you learn from the data -- e.g. how exactly to find the
 ##		text of each tweet in the big nested structure -- write code to print out

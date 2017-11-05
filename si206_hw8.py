@@ -47,8 +47,6 @@ def get_tweets():
     return twitter_reults
 
 
-
-
 ## [PART 2]
 # Create a database: tweets.sqlite,
 # And then load all of those tweets you got from Twitter into a database table called Tweets, with the following columns in each row:
@@ -57,6 +55,11 @@ def get_tweets():
 ## time_posted - containing the date/time value that represents when the tweet was posted (note that this should be a TIMESTAMP column data type!)
 ## tweet_text - containing the text that goes with that tweet
 ## retweets - containing the number that represents how many times the tweet has been retweeted
+
+conn= sqlite3.connect(‘tweets.db’)
+cur = conn.cursor()
+cur.execute('DROP TABLE IF EXISTS Tweets')
+cur.execute('CREATE TABLE Tweets(tweet_id TEXT, author TEXT, time_posted TIMESTAMP, tweet_text TEXT, retweets NUMBER)')
 
 # Below we have provided interim outline suggestions for what to do, sequentially, in comments.
 
